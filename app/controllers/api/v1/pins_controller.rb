@@ -20,8 +20,8 @@ class Api::V1::PinsController < ApplicationController
     end
 
     def authenticate
-      user = User.find_by(email: request.headers['X-User-Email'])
-      access = user ? request.headers['X-User-Token'] == user.api_token : false
+      user = User.find_by(email: request.headers['HTTP_X_USER_EMAIL'])
+      access = user ? request.headers['HTTP_X_API_TOKEN'] == user.api_token : false
 
       unless access
         render json: { errors: "Error de autenticacion" }, status: 401
